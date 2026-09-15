@@ -1,6 +1,6 @@
 # DocsAgent — RAG Support Assistant
 
-**Live demo:** https://client-two-navy-33.vercel.app · **API:** https://docsagent-api.onrender.com/health
+**Live demo:** https://docsagent.vercel.app · **API:** https://docsagent-api.onrender.com/health
 
 > A HighLevel help-center document is pre-loaded — ask it something like *"Which plan includes
 > SaaS Mode and what does it cost?"* or an off-topic question to see the guardrail decline.
