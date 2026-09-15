@@ -1,5 +1,11 @@
 # DocsAgent — RAG Support Assistant
 
+**Live demo:** https://client-two-navy-33.vercel.app · **API:** https://docsagent-api.onrender.com/health
+
+> A HighLevel help-center document is pre-loaded — ask it something like *"Which plan includes
+> SaaS Mode and what does it cost?"* or an off-topic question to see the guardrail decline.
+> The API runs on a free tier, so the first request after idle may take ~30s to wake.
+
 Upload product documentation, ask questions in natural language, and get answers grounded
 **only** in those documents — with source citations and a live token / latency / cost
 readout. Built with Claude (generation), Voyage (embeddings), and Pinecone (vectors).
@@ -181,7 +187,12 @@ Cost is computed from published rates (`server/src/lib/pricing.ts`) — no guess
 
 ## Deploy
 
-- **Backend → Railway:** root `server/`, start command `npm run start`, set the four env vars.
-  Run `npm run seed` once after deploy to pre-load the demo doc.
-- **Frontend → Vercel:** root `client/`, build `npm run build`, output `dist`, set
-  `VITE_API_URL` to the Railway URL.
+Deployed as a public GitHub repo → Render (API) + Vercel (UI).
+
+- **Backend → Render:** a `render.yaml` blueprint provisions the `docsagent-api` web service
+  (root `server/`, build `npm install`, start `npm run start`). The three non-secret env vars
+  are baked into the blueprint; the four secrets (`ANTHROPIC_API_KEY`, `ANTHROPIC_WORKSPACE_ID`,
+  `VOYAGE_API_KEY`, `PINECONE_API_KEY`) are set in the Render dashboard. The demo doc is already
+  in Pinecone (cloud), so no re-seed is needed after deploy.
+- **Frontend → Vercel:** root `client/`, framework auto-detected (Vite). Set the build-time env
+  var `VITE_API_URL` to the Render API URL so the UI calls the deployed backend.
