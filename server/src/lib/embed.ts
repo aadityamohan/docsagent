@@ -12,7 +12,8 @@ export const EMBED_DIM = 512;
 const VOYAGE_BASE_URL = process.env.VOYAGE_BASE_URL || "https://ai.mongodb.com/v1";
 
 let client: VoyageAIClient | null = null;
-function voyage(): VoyageAIClient {
+// Shared Voyage client — used by both embed() and rerank().
+export function voyageClient(): VoyageAIClient {
   if (!client) {
     client = new VoyageAIClient({
       apiKey: process.env.VOYAGE_API_KEY,
@@ -32,7 +33,7 @@ export async function embed(
   inputType: "document" | "query"
 ): Promise<EmbedResult> {
   if (texts.length === 0) return { vectors: [], tokens: 0 };
-  const res: any = await voyage().embed({
+  const res: any = await voyageClient().embed({
     input: texts,
     model: EMBED_MODEL,
     inputType,

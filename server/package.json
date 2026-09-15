@@ -8,6 +8,7 @@
     "build": "tsc",
     "seed": "tsx scripts/seed.ts",
     "eval": "tsx eval/run.ts",
+    "smoke": "tsx src/smoke.ts",
     "check": "tsx scripts/check-chunker.ts",
     "test": "tsx scripts/check-chunker.ts"
   },
@@ -24,6 +25,8 @@
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "multer": "^2.4.0",
+    "pdf-parse": "^2.4.5",
     "tsx": "^4.23.13",
     "voyageai": "^0.4.0",
     "zod": "^4.6.5"
@@ -31,6 +34,7 @@
   "devDependencies": {
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
+    "@types/multer": "^2.2.0",
     "@types/node": "^26.5.1",
     "typescript": "^7.0.2"
   }

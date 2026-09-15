@@ -6,8 +6,9 @@ export const MODEL_PRICING: Record<string, { in: number; out: number }> = {
   "claude-opus-4-8": { in: 5, out: 25 },
 };
 
-// voyage-3-lite: ~$0.02 / 1M tokens (free tier during dev).
+// Voyage rates ~$0.02 / 1M tokens (embed + rerank alike; free tier during dev).
 export const VOYAGE_PRICING: Record<string, number> = {
+  "voyage-3.5-lite": 0.02,
   "voyage-3-lite": 0.02,
 };
 
