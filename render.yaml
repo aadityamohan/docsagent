@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: docsagent-api
+    runtime: node
+    rootDir: server
+    plan: free
+    buildCommand: npm install
+    startCommand: npm run start
+    healthCheckPath: /health
+    envVars:
+      - key: PINECONE_INDEX
+        value: docsagent
+      - key: VOYAGE_BASE_URL
+        value: https://ai.mongodb.com/v1
+      - key: ANTHROPIC_MODEL
+        value: claude-haiku-4-5
+      # Secrets — enter these in the Render dashboard (not stored in the repo):
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: ANTHROPIC_WORKSPACE_ID
+        sync: false
+      - key: VOYAGE_API_KEY
+        sync: false
+      - key: PINECONE_API_KEY
+        sync: false

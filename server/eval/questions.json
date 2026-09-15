@@ -1,0 +1,22 @@
+[
+  { "q": "What is HighLevel?", "expectedContains": "all-in-one", "expected": "An all-in-one white-label sales and marketing platform for agencies and their clients.", "type": "answerable" },
+  { "q": "What is a sub-account?", "expectedContains": "Location", "expected": "A per-client workspace (also called a Location) holding that client's contacts, calendars, funnels, workflows, and conversations.", "type": "answerable" },
+  { "q": "What is the maximum CSV import size for contacts?", "expectedContains": "50,000 rows", "expected": "50,000 rows per file; larger lists must be split.", "type": "answerable" },
+  { "q": "What are custom values used for?", "expectedContains": "custom_values", "expected": "Account-level mail-merge placeholders like {{custom_values.support_phone}} substituted into emails, SMS, and funnels at send time.", "type": "answerable" },
+  { "q": "What is a Smart List?", "expectedContains": "filtered", "expected": "A saved, filtered view of contacts.", "type": "answerable" },
+  { "q": "What can a workflow do besides simple actions?", "expectedContains": "if/else branches", "expected": "Supports if/else branches, wait steps, and goal events that let a contact skip ahead.", "type": "answerable" },
+  { "q": "What are the four calendar types?", "expectedContains": "Class booking", "expected": "Round-robin, collective, class booking, and service calendars.", "type": "answerable" },
+  { "q": "What is a collective calendar?", "expectedContains": "all chosen team members are free", "expected": "It books a slot only when all chosen team members are free.", "type": "answerable" },
+  { "q": "What must I register before sending SMS to US numbers?", "expectedContains": "A2P 10DLC", "expected": "A2P 10DLC registration is required before sending SMS to US numbers.", "type": "answerable" },
+  { "q": "What DNS records are needed for email deliverability?", "expectedContains": "SPF and DKIM", "expected": "SPF and DKIM records must authenticate the dedicated sending domain.", "type": "answerable" },
+  { "q": "Which channels appear in the unified inbox?", "expectedContains": "WhatsApp", "expected": "SMS, email, WhatsApp, Facebook Messenger, Instagram DMs, and Google Business Messages.", "type": "answerable" },
+  { "q": "How does reputation management collect reviews?", "expectedContains": "Google Business Profile", "expected": "It requests reviews over SMS and email and aggregates reviews from Google Business Profile and Facebook.", "type": "answerable" },
+  { "q": "What is text-to-pay?", "expectedContains": "payment link over SMS", "expected": "A feature that sends a payment link over SMS.", "type": "answerable" },
+  { "q": "What is the LeadConnector app?", "expectedContains": "mobile app", "expected": "The mobile app (iOS and Android) giving inbox, calendar, contacts, and payments on the go.", "type": "answerable" },
+  { "q": "How much is the Starter plan and how many sub-accounts does it allow?", "expectedContains": "up to three sub-accounts", "expected": "$97 per month, allowing up to three sub-accounts.", "type": "cross-chunk" },
+  { "q": "What discount do you get for paying annually?", "expectedContains": "two months free", "expected": "Annual billing gives two months free.", "type": "answerable" },
+  { "q": "How can I clone my setup to a brand new client account?", "expectedContains": "Snapshot", "expected": "Save your setup as a Snapshot and apply it to the new sub-account.", "type": "reworded" },
+  { "q": "I want to resell the platform and mark up SMS costs — which plan do I need and what does it cost?", "expectedContains": "$497", "expected": "SaaS Pro at $497 per month, which includes SaaS Mode and rebilling.", "type": "cross-chunk" },
+  { "q": "Does HighLevel integrate with Shopify to sync inventory?", "expectedContains": null, "expected": "The documentation does not cover this.", "type": "fallback" },
+  { "q": "What is HighLevel's uptime SLA percentage?", "expectedContains": null, "expected": "The documentation does not cover this.", "type": "fallback" }
+]
