@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { embed, EMBED_MODEL } from "../lib/embed.js";
-import { query } from "../lib/vector.js";
+import { query, cleanNamespace } from "../lib/vector.js";
 import { rerank } from "../lib/rerank.js";
 import { answer, MODEL } from "../lib/claude.js";
 import { estimateCostUSD } from "../lib/pricing.js";
@@ -18,15 +18,20 @@ const RERANK_MIN_SCORE = Number(process.env.RERANK_MIN_SCORE) || 0.45;
 const FALLBACK = "I don't have that information in the documentation.";
 
 queryRouter.post("/query", async (req, res) => {
-  const { question } = req.body ?? {};
+  const { question, sessionId } = req.body ?? {};
   if (typeof question !== "string" || !question.trim()) {
     return res.status(400).json({ error: "question (non-empty string) is required" });
   }
+  const namespace = cleanNamespace(sessionId); // "" = shared demo corpus
   const start = Date.now();
 
   try {
     const { vectors, tokens: embedTokens } = await embed([question], "query");
-    const candidates = await query(vectors[0], RETRIEVE_K);
+    let candidates = await query(vectors[0], RETRIEVE_K, namespace);
+    // A session that hasn't uploaded anything falls back to the shared demo corpus.
+    if (candidates.length === 0 && namespace) {
+      candidates = await query(vectors[0], RETRIEVE_K, "");
+    }
 
     // Stage 2: rerank the candidates, then guardrail on the top relevance score.
     const { matches: reranked, tokens: rerankTokens } = await rerank(question, candidates);

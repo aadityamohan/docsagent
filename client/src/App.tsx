@@ -24,6 +24,17 @@ function fmtSize(bytes: number): string {
   return bytes < 1024 * 1024 ? `${(bytes / 1024).toFixed(0)} KB` : `${(bytes / 1024 / 1024).toFixed(1)} MB`;
 }
 
+// Per-browser session id → isolates each user's uploaded docs into their own Pinecone namespace
+// (multi-tenancy). Before any upload, queries fall back to the shared pre-loaded demo corpus.
+function getSessionId(): string {
+  let s = localStorage.getItem("docsagent-session");
+  if (!s) {
+    s = crypto.randomUUID();
+    localStorage.setItem("docsagent-session", s);
+  }
+  return s;
+}
+
 export default function App() {
   const [text, setText] = useState("");
   const [source, setSource] = useState("");
@@ -38,6 +49,7 @@ export default function App() {
   const [showCitations, setShowCitations] = useState(false);
   // Task C: free-tier API sleeps after idle; ping /health on mount so the first-request wait is explained, not dead air.
   const [waking, setWaking] = useState(true);
+  const sessionId = useRef(getSessionId()).current;
 
   useEffect(() => {
     fetch(`${API}/health`).catch(() => {}).finally(() => setWaking(false));
@@ -49,7 +61,7 @@ export default function App() {
       const r = await fetch(`${API}/ingest`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text, source: source || "untitled" }),
+        body: JSON.stringify({ text, source: source || "untitled", sessionId }),
       });
       const data = await r.json();
       if (!r.ok) throw new Error(data.message || data.error || "failed");
@@ -67,6 +79,7 @@ export default function App() {
     try {
       const form = new FormData();
       form.append("file", pdf); // do NOT set Content-Type — the browser sets the multipart boundary
+      form.append("sessionId", sessionId);
       const r = await fetch(`${API}/ingest/pdf`, { method: "POST", body: form });
       const data = await r.json();
       if (!r.ok) throw new Error(data.message || data.error || "failed");
@@ -89,7 +102,7 @@ export default function App() {
       const r = await fetch(`${API}/query`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ question }),
+        body: JSON.stringify({ question, sessionId }),
       });
       const data = await r.json();
       if (!r.ok) throw new Error(data.message || data.error || "failed");

@@ -61,6 +61,12 @@ export async function query(vector: number[], topK = 4, namespace = ""): Promise
   }));
 }
 
+// Sanitize a client-supplied session id into a safe Pinecone namespace. Empty -> default
+// namespace (the shared, pre-loaded demo corpus).
+export function cleanNamespace(s: unknown): string {
+  return typeof s === "string" ? s.replace(/[^a-zA-Z0-9_-]/g, "").slice(0, 64) : "";
+}
+
 export async function clearNamespace(namespace: string): Promise<void> {
   try {
     await index().namespace(namespace).deleteAll();
