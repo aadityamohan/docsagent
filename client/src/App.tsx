@@ -108,6 +108,7 @@ export default function App() {
       <header>
         <h1>DocsAgent</h1>
         <p className="sub">RAG support assistant · grounded answers · guardrails · cost telemetry</p>
+        <p className="tag">📚 Pre-loaded with HighLevel's help-center docs — ask about plans, workflows, SaaS Mode, or upload your own.</p>
       </header>
 
       <details className="panel">

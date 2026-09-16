@@ -23,7 +23,16 @@ body { margin: 0; }
 .hint { font-weight: 400; color: #888; }
 .or { text-align: center; color: #aaa; font-size: 12px; margin: 14px 0; }
 header h1 { margin: 0; font-size: 28px; }
-.sub { color: #666; margin: 4px 0 24px; font-size: 14px; }
+.sub { color: #666; margin: 4px 0 8px; font-size: 14px; }
+.tag {
+  color: #3730a3;
+  background: #eef2ff;
+  border: 1px solid #e0e7ff;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 13px;
+  margin: 0 0 24px;
+}
 
 .panel {
   background: #fff;
